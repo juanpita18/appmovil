@@ -25,9 +25,9 @@ class ProductsList extends StatelessWidget{
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
-                  'Esta es una camiseta',
+                  'Primera equipacion de Ecuador',
 // Suggested code may be subject to a license. Learn more: ~LicenseLog:676824946.
-                  style: TextStyle(fontSize: 15, fontStyle: FontStyle.italic),
+                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold  , fontStyle: FontStyle.italic),
                 
                 ),
                 
