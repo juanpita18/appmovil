@@ -23,8 +23,10 @@ GoRoute(
 ),
 // Suggested code may be subject to a license. Learn more: ~LicenseLog:2022152969.
 GoRoute(
-  path:AppRoutes.productDetail,
-  builder: (context, state) => const ProductDetail(),
+  path:'${AppRoutes.productDetail}/:productId',
+  builder: (context, state) =>  ProductDetail(
+    productId : state.pathParameters['productId'],
+  ),
 ),
 GoRoute(
   path:AppRoutes.productsList,

@@ -1,50 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/widgets/drawer_widget.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:myapp/types/product.dart';
 
-class ProductsList extends StatelessWidget{
+import '../providers/product_provider.dart';
+import '../widgets/card_item_product.dart';
+import '../widgets/drawer_widget.dart';
+
+class ProductsList extends ConsumerWidget {
   const ProductsList({super.key});
 
   @override
-  Widget build(BuildContext context) {
-  final size = MediaQuery.of(context).size;
-  return Scaffold(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final productProv = ref.watch(productsProvider);
+    return Scaffold(
       appBar: AppBar(
-        title: const Text('Products_List')
-        ,
+        title: const Text('Products List'),
       ),
-      drawer:const DrawerWidget(),
-      body: Column (
- 
-
-      
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              // Text aligned to the left
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  'Primera equipacion de Ecuador',
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:676824946.
-                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold  , fontStyle: FontStyle.italic),
-                
-                ),
-                
-              ),
-              // Image aligned to the right
-              Image.network(
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRu3ErhNty2r38s-0I3JXcS3W2QEtr1GoY5uw&s',
-                height: 200,
-                width: size.width * 0.60,
-                fit: BoxFit.cover,
-              ),
-            ],
-      )]
-    ),
-  );
-    
+      drawer: const DrawerWidget(),
+      body: productProv.when(
+        data: (List<Product> products) {
+          return SingleChildScrollView(
+            child: Column(
+              children: products.map((product) {
+                return CardItemProduct(
+                  url: product.urlImage,
+                  name: product.name,
+                  price: product.price,
+                  stock: product.stock,
+                  description: product.description,
+                );
+              }).toList(),
+            ),
+          );
+        },
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stackTrace) => Center(child: Text('Error: $error')),
+      ),
+    );
   }
-
-
 }
