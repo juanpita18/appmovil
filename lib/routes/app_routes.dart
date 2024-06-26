@@ -19,7 +19,7 @@ GoRoute(
 ),
  GoRoute(
   path:AppRoutes.createUpdate,
-  builder: (context, state) => const CreateUpdateView(),
+  builder: (context, state) =>  CreateUpdateView(),
 ),
 // Suggested code may be subject to a license. Learn more: ~LicenseLog:2022152969.
 GoRoute(

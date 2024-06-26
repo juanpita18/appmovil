@@ -23,6 +23,7 @@ class ProductsList extends ConsumerWidget {
             child: Column(
               children: products.map((product) {
                 return CardItemProduct(
+                  id: product.id,
                   url: product.urlImage,
                   name: product.name,
                   price: product.price,

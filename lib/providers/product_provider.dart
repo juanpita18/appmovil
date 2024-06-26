@@ -42,3 +42,22 @@ final productSelectedProvider = FutureProvider<Product>((ref) async {
 
   return product;
 });
+final createProductProvider = Provider<Future<void> Function(Product)>((ref) {
+  final dio = ref.watch(dioProvider);
+  return (Product product) async {
+    try {
+      final response = await dio.post(
+        "https://pucei.edu.ec:9101/api/v2/products",
+        data: product.toJson(),
+      );
+
+      if (response.statusCode != 201) {
+        throw Exception('Failed to create product. Status code: ${response.statusCode}, Response: ${response.data}');
+      }
+    } catch (e) {
+      throw Exception('Failed to create product. Error: $e');
+    }
+  };
+});
+
+

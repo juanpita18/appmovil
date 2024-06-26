@@ -1,20 +1,24 @@
-// TODO Implement this library.import 'package:flutter/material.dart';
+
+
 
 import 'package:flutter/material.dart';
 
 class CardItemProduct extends StatelessWidget {
+  // id
   final String url;
   final String name;
-  final double price;
+  final double  price;
   final int stock;
   final String description;
+  
   const CardItemProduct({
     super.key,
+    // id
     required this.url,
     required this.name,
     required this.price,
     required this.stock,
-    required this.description,
+    required this.description, required id,
   });
 
   @override
@@ -23,6 +27,9 @@ class CardItemProduct extends StatelessWidget {
       onTap: () {
         // Acción a realizar cuando se presiona el botón, 
         // por ejemplo, navegar a una pantalla de pago.
+        
+
+        // redirigir(id)
         
       },
       child: Padding(
