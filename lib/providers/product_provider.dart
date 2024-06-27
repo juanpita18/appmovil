@@ -59,5 +59,3 @@ final createProductProvider = Provider<Future<void> Function(Product)>((ref) {
     }
   };
 });
-
-
