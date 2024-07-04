@@ -59,3 +59,34 @@ final createProductProvider = Provider<Future<void> Function(Product)>((ref) {
     }
   };
 });
+final productByIdProvider = FutureProvider.family<Product, String>((ref, id) async {
+  final dio = ref.watch(dioProvider);
+
+  final response = await dio.get("https://pucei.edu.ec:9101/api/v2/products/$id");
+
+  if (response.statusCode != 200) return Product(id: "", name: "err", price: 0, stock: 0, urlImage: "", description: "err", v: 0);
+
+  final product = Product.fromJson(response.data);
+
+  return product;
+});
+final updateProductProvider = Provider<Future<void> Function(Product)>((ref) {
+  final dio = ref.watch(dioProvider);
+  return (Product product) async {
+    try {
+      print("Updating product: ${product.toJson()}");
+      final response = await dio.patch(
+        "https://pucei.edu.ec:9101/api/v2/products/${product.id}",
+        data: product.toJson(),
+      );
+
+      if (response.statusCode != 200) {
+        print('Failed to update product. Status code: ${response.statusCode}, Response: ${response.data}');
+        throw Exception('Failed to update product. Status code: ${response.statusCode}, Response: ${response.data}');
+      }
+    } catch (e) {
+      print('Failed to update product. Error: $e');
+      throw Exception('Failed to update product. Error: $e');
+    }
+  };
+});

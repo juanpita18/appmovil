@@ -2,59 +2,53 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:myapp/routes/app_routes.dart';
 
 class CardItemProduct extends StatelessWidget {
   // id
+  final String id;
   final String url;
   final String name;
-  final double  price;
-  final int stock;
+  final double price;
+  final double stock;
   final String description;
-  
   const CardItemProduct({
     super.key,
-    // id
+    required this.id,
     required this.url,
     required this.name,
     required this.price,
     required this.stock,
-    required this.description, required id,
+    required this.description,
   });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // Acción a realizar cuando se presiona el botón, 
-        // por ejemplo, navegar a una pantalla de pago.
-        
-
-        // redirigir(id)
-        
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 10,
-          vertical: 5,
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(40),
-          child:  Container(
-            color: Colors.grey[200],
-            // padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image.network(
-                  url,
-                  height: 220,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) => const Center(
-                    child: Icon(Icons.error),
-                  ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 10,
+        vertical: 5,
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(40),
+        child:  Container(
+          color: Colors.grey[200],
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image.network(
+                url,
+                height: 220,
+                width: double.infinity,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => const Center(
+                  child: Icon(Icons.error),
                 ),
-                Center(
+              ),
+              GestureDetector(
+                onTap: () => context.go('${AppRoutes.productDetail}/$id'),
+                child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -85,9 +79,9 @@ class CardItemProduct extends StatelessWidget {
                       ),
                     ],
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
         ),
       ),

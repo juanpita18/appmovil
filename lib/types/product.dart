@@ -2,7 +2,7 @@ class Product {
   final String id;
   final String name;
   final double price;
-  final int stock;
+  final double stock;
   final String urlImage;
   final String description;
   final int v;
@@ -21,8 +21,8 @@ class Product {
     return Product(
       id: json['_id'],
       name: json['name'],
-      price: json['price'],
-      stock: json['stock'],
+      price: json["price"]?.toDouble(),
+        stock: json["stock"]?.toDouble(),
       urlImage: json['urlImage'],
       description: json['description'],
       v: json['__v'],
